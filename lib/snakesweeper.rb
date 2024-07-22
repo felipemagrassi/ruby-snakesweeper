@@ -29,15 +29,23 @@ module Snakesweeper
   end
 
   class Coordinate < Data.define(:x, :y)
-    def neighbour?(coordinate)
+    def neighbour?(board, coordinate)
+      return false if coordinate.off_limits?(board.width, board.height)
       return true if (x - coordinate.x).abs <= 1 && (y - coordinate.y).abs <= 1
 
       false
     end
 
-    def neighbours
+    def ==(other) = other.x == x && other.y == y
+
+    def off_limits?(width, height)
+      x.negative? || y.negative? || x > width || y > height
+    end
+
+    def neighbours(board)
       Enumerator.product(x - 1..x + 1, y - 1..y + 1)
                 .map { |x, y| Coordinate.new(x, y) }
+                .reject { |coord| coord.off_limits?(board.width, board.height) }
     end
   end
 end
