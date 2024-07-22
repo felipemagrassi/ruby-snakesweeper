@@ -34,5 +34,10 @@ module Snakesweeper
 
       false
     end
+
+    def neighbours
+      Enumerator.product(x - 1..x + 1, y - 1..y + 1)
+                .map { |x, y| Coordinate.new(x, y) }
+    end
   end
 end

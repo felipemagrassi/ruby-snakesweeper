@@ -62,4 +62,30 @@ class TestSnakesweeper < Minitest::Test
     random_coordinate = Snakesweeper::Coordinate.new(10, 10)
     assert_equal(random_coordinate.neighbour?(coordinate), false)
   end
+
+  def test_it_can_calculate_neighbours
+    coordinate = Snakesweeper::Coordinate.new(3, 3)
+    assert_equal(coordinate.x, 3)
+    assert_equal(coordinate.y, 3)
+
+    neighbour1 = Snakesweeper::Coordinate.new(2, 4)
+    neighbour2 = Snakesweeper::Coordinate.new(2, 3)
+    neighbour3 = Snakesweeper::Coordinate.new(2, 2)
+    neighbour4 = Snakesweeper::Coordinate.new(3, 2)
+    neighbour5 = Snakesweeper::Coordinate.new(3, 4)
+    neighbour6 = Snakesweeper::Coordinate.new(4, 2)
+    neighbour7 = Snakesweeper::Coordinate.new(4, 3)
+    neighbour8 = Snakesweeper::Coordinate.new(4, 4)
+
+    assert_includes(coordinate.neighbours, neighbour1)
+    assert_includes(coordinate.neighbours, neighbour2)
+    assert_includes(coordinate.neighbours, neighbour3)
+    assert_includes(coordinate.neighbours, neighbour4)
+    assert_includes(coordinate.neighbours, neighbour5)
+    assert_includes(coordinate.neighbours, neighbour6)
+    assert_includes(coordinate.neighbours, neighbour7)
+    assert_includes(coordinate.neighbours, neighbour8)
+
+    assert(!coordinate.neighbours.include?(Snakesweeper::Coordinate.new(1, 1)))
+  end
 end
